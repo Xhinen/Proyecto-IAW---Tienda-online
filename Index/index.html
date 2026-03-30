@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NexCore — Tecnología de vanguardia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #070a0f;
+      --surface: #0d1117;
+      --surface2: #151c27;
+      --border: #1e2a3a;
+      --accent: #00e5ff;
+      --accent2: #7b2fff;
+      --text: #e8edf5;
+      --muted: #6b7a90;
+      --mono: 'Space Mono', monospace;
+      --sans: 'Syne', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(7,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -1px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.active { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 5rem;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.35;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(0,229,255,0.08) 0%, transparent 70%);
+      top: -100px; left: -150px;
+      pointer-events: none;
+    }
+    .hero-glow2 {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(123,47,255,0.07) 0%, transparent 70%);
+      bottom: -50px; right: -100px;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 2rem;
+      animation: fadeUp 0.9s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(32px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(0,229,255,0.08);
+      border: 1px solid rgba(0,229,255,0.2);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+    }
+    .hero-tag::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--accent); border-radius: 50%;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.4; transform:scale(0.7); }
+    }
+    h1 {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 1.5rem;
+    }
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      border-radius: 6px;
+      font-family: var(--sans);
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      border: none;
+    }
+    .btn-primary:hover {
+      background: #fff;
+      box-shadow: 0 0 30px rgba(0,229,255,0.4);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ── STATS ── */
+    .stats {
+      display: flex; justify-content: center; gap: 4rem;
+      padding: 2rem 3rem;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: var(--mono);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── SECTION ── */
+    section { padding: 5rem 3rem; max-width: 1280px; margin: 0 auto; }
+    .section-tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    /* ── PRODUCT GRID ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,229,255,0.07);
+    }
+    .card-img {
+      width: 100%; height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--surface2);
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,229,255,0.04), rgba(123,47,255,0.04));
+    }
+    .badge {
+      position: absolute; top: 12px; left: 12px;
+      background: var(--accent);
+      color: #000;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      z-index: 2;
+    }
+    .badge-purple {
+      background: var(--accent2);
+      color: #fff;
+    }
+    .card-body { padding: 1.25rem; }
+    .card-category {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .card-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+    }
+    .card-price-row {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-price {
+      font-family: var(--mono);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .card-old {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+    .card-btn {
+      display: inline-block;
+      padding: 0.45rem 1rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 5px;
+      font-size: 0.78rem;
+      font-family: var(--sans);
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .card-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #000;
+    }
+    .rating {
+      display: flex; align-items: center; gap: 0.3rem;
+      font-size: 0.78rem; color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .stars { color: #f4c430; }
+
+    /* ── FEATURES ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(0,229,255,0.3); }
+    .feature-icon {
+      width: 48px; height: 48px;
+      background: rgba(0,229,255,0.07);
+      border: 1px solid rgba(0,229,255,0.15);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .feature-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+    }
+    .feature-desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      background: var(--surface);
+    }
+    .marquee {
+      display: flex;
+      animation: marquee 25s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-item {
+      display: inline-flex; align-items: center; gap: 1rem;
+      padding: 0 2rem;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .marquee-dot { width: 4px; height: 4px; background: var(--accent); border-radius: 50%; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── BANNER ── */
+    .banner {
+      background: linear-gradient(135deg, #0a1628 0%, #070a0f 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 4rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin: 2rem 3rem;
+    }
+    .banner-glow {
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(123,47,255,0.12) 0%, transparent 70%);
+      top: -100px; right: -100px;
+    }
+    .banner h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      margin-bottom: 1rem;
+    }
+    .banner p {
+      color: var(--muted);
+      max-width: 400px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+    .footer-nav { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .footer-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+    .footer-nav a:hover { color: var(--accent); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Nex<span>Core</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Inicio</a></li>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Tecnología de próxima generación</div>
+    <h1>El hardware<br>del <em>futuro</em><br>hoy aquí</h1>
+    <p class="hero-sub">Componentes, portátiles y periféricos de alto rendimiento. Envío en 24h, garantía total y precios imbatibles.</p>
+    <div class="hero-cta">
+      <a href="producto.html" class="btn btn-primary">Ver productos</a>
+      <a href="contacto.html" class="btn btn-ghost">Contactar</a>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <span class="stat-num">+100K</span>
+    <span class="stat-label">Artículos disponibles</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">24h</span>
+    <span class="stat-label">Entrega garantizada</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">4.8★</span>
+    <span class="stat-label">Valoración media</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">2005</span>
+    <span class="stat-label">Años de experiencia</span>
+  </div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span class="marquee-item"><span class="marquee-dot"></span>RTX 5060</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Intel Core i7</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Apple M4</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>AMD Ryzen 7</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>DDR5 RAM</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>NVMe SSD</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>4K OLED</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Wi-Fi 7</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>DLSS 4</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>RTX 5060</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Intel Core i7</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Apple M4</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>AMD Ryzen 7</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>DDR5 RAM</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>NVMe SSD</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>4K OLED</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Wi-Fi 7</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>DLSS 4</span>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="reveal">
+  <p class="section-tag">// Ofertas destacadas</p>
+  <h2 class="section-title">Productos TOP del momento</h2>
+  <p class="section-sub">Las mejores ofertas en componentes, portátiles y electrónica. Precios actualizados cada día.</p>
+
+  <div class="products-grid">
+    <div class="card">
+      <div class="card-img">🎮
+        <div class="badge">-23%</div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Tarjeta gráfica</p>
+        <p class="card-name">ASUS PRIME GeForce RTX 5060 OC Edition 8GB GDDR7</p>
+        <div class="rating"><span class="stars">★★★★★</span> 4.7 (269 opiniones)</div>
+        <div class="card-price-row">
+          <div>
+            <span class="card-price">335,85€</span>
+            <span class="card-old"> 403,89€</span>
+          </div>
+          <a href="producto.html" class="card-btn">Ver más</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img">💻
+        <div class="badge">-23%</div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Portátil gaming</p>
+        <p class="card-name">Lenovo LOQ 15IRX10 i7-13700HX 32GB 1TB RTX 5060</p>
+        <div class="rating"><span class="stars">★★★★½</span> 4.5 (389 opiniones)</div>
+        <div class="card-price-row">
+          <div>
+            <span class="card-price">1.149€</span>
+            <span class="card-old"> 1.499€</span>
+          </div>
+          <a href="producto.html" class="card-btn">Ver más</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img">🍎
+        <div class="badge badge-purple">-23%</div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Portátil</p>
+        <p class="card-name">Apple MacBook Air M4 10C / 16GB / 256GB / 13.6" Azul</p>
+        <div class="rating"><span class="stars">★★★★★</span> 4.8 (537 opiniones)</div>
+        <div class="card-price-row">
+          <div>
+            <span class="card-price">899€</span>
+            <span class="card-old"> 1.179€</span>
+          </div>
+          <a href="producto.html" class="card-btn">Ver más</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img">📺
+        <div class="badge">-50%</div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Televisor</p>
+        <p class="card-name">Philips QLED 55PUS8400 55" 4K Ambilight Dolby Atmos</p>
+        <div class="rating"><span class="stars">★★★★½</span> 4.5 (105 opiniones)</div>
+        <div class="card-price-row">
+          <div>
+            <span class="card-price">379€</span>
+            <span class="card-old"> 759€</span>
+          </div>
+          <a href="producto.html" class="card-btn">Ver más</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img">🎧
+        <div class="badge">-18%</div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Audio</p>
+        <p class="card-name">Apple AirPods Pro 3 ANC USB-C Blancos</p>
+        <div class="rating"><span class="stars">★★★★★</span> 4.7 (106 opiniones)</div>
+        <div class="card-price-row">
+          <div>
+            <span class="card-price">219€</span>
+            <span class="card-old"> 269€</span>
+          </div>
+          <a href="producto.html" class="card-btn">Ver más</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img">🖱️
+        <div class="badge">-34%</div>
+      </div>
+      <div class="card-body">
+        <p class="card-category">Periférico</p>
+        <p class="card-name">Logitech Pro X Superlight 2 SE 44000 DPI Inalámbrico</p>
+        <div class="rating"><span class="stars">★★★★★</span> 4.9 (54 opiniones)</div>
+        <div class="card-price-row">
+          <div>
+            <span class="card-price">84,90€</span>
+            <span class="card-old"> 129,99€</span>
+          </div>
+          <a href="producto.html" class="card-btn">Ver más</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="reveal">
+  <p class="section-tag">// Por qué elegirnos</p>
+  <h2 class="section-title">Compromiso total contigo</h2>
+  <p class="section-sub">Más de 20 años siendo expertos en tecnología y servicio al cliente.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🚀</div>
+      <p class="feature-title">Entrega en 24h</p>
+      <p class="feature-desc">Si incumplimos la fecha, te devolvemos los gastos de envío. Garantizado.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <p class="feature-title">Garantía 24h</p>
+      <p class="feature-desc">Solución a cualquier incidencia en menos de 24 horas. Sin burocracia.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">↩️</div>
+      <p class="feature-title">Devoluciones gratis</p>
+      <p class="feature-desc">Devuelve cualquier producto sin coste adicional. Sin preguntas.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">💬</div>
+      <p class="feature-title">Atención local</p>
+      <p class="feature-desc">Soporte en español, sin esperas y sin bots. Expertos reales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER -->
+<div class="banner reveal">
+  <div class="banner-glow"></div>
+  <h2>¿Tienes alguna duda?<br>Escríbenos ahora</h2>
+  <p>Nuestro equipo de expertos responderá cualquier consulta técnica o de compra.</p>
+  <a href="contacto.html" class="btn btn-primary">Contactar con un experto</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="footer-logo">NexCore</a>
+  <nav class="footer-nav">
+    <a href="index.html">Inicio</a>
+    <a href="producto.html">Productos</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+  <p class="footer-copy">© 2026 NexCore — Todos los derechos reservados</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

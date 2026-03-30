@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NexCore — Contacto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #070a0f; --surface: #0d1117; --surface2: #151c27;
+      --border: #1e2a3a; --accent: #00e5ff; --accent2: #7b2fff;
+      --text: #e8edf5; --muted: #6b7a90;
+      --error: #ff4d6d; --success: #00e5a0;
+      --mono: 'Space Mono', monospace; --sans: 'Syne', sans-serif;
+    }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); overflow-x: hidden; min-height: 100vh; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(7,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--mono); font-size: 1.3rem; font-weight: 700; color: var(--accent); letter-spacing: -1px; text-decoration: none; }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.active { color: var(--text); }
+
+    /* ── PAGE LAYOUT ── */
+    .page {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+    @media(max-width:768px) {
+      .page { grid-template-columns: 1fr; }
+      .page-left { padding-top: 7rem; }
+    }
+
+    /* ── LEFT PANEL ── */
+    .page-left {
+      padding: 10rem 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+      border-right: 1px solid var(--border);
+    }
+    .bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 50px 50px; opacity: 0.25;
+    }
+    .bg-glow {
+      position: absolute; width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,229,255,0.07), transparent 70%);
+      bottom: -200px; left: -200px;
+    }
+    .left-content { position: relative; z-index: 2; }
+    .page-tag {
+      font-family: var(--mono); font-size: 0.72rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+    }
+    .page-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800; letter-spacing: -2px; line-height: 1;
+      margin-bottom: 1.2rem;
+    }
+    .page-sub {
+      color: var(--muted); line-height: 1.7; font-size: 0.95rem;
+      max-width: 380px; margin-bottom: 3rem;
+    }
+
+    .contact-methods { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-method {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; transition: border-color 0.2s;
+    }
+    .contact-method:hover { border-color: rgba(0,229,255,0.3); }
+    .method-icon {
+      width: 42px; height: 42px;
+      background: rgba(0,229,255,0.07); border: 1px solid rgba(0,229,255,0.12);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .method-label { font-size: 0.72rem; color: var(--muted); font-family: var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
+    .method-val { font-size: 0.9rem; font-weight: 600; margin-top: 0.1rem; }
+
+    /* ── RIGHT PANEL — FORM ── */
+    .page-right {
+      padding: 10rem 4rem 5rem;
+      background: var(--surface);
+    }
+    @media(max-width:768px) { .page-right { padding: 3rem 2rem 5rem; } }
+
+    .form-title {
+      font-size: 1.3rem; font-weight: 800; letter-spacing: -0.5px;
+      margin-bottom: 0.4rem;
+    }
+    .form-sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 2.5rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media(max-width:500px) { .form-row { grid-template-columns: 1fr; } }
+
+    .field { margin-bottom: 1.2rem; }
+    .field label {
+      display: block; font-family: var(--mono); font-size: 0.72rem;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .field label .required { color: var(--accent); margin-left: 2px; }
+    .field input, .field select, .field textarea {
+      width: 100%; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 8px;
+      color: var(--text); font-family: var(--sans); font-size: 0.9rem;
+      padding: 0.75rem 1rem; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(0,229,255,0.08);
+    }
+    .field input.error, .field select.error, .field textarea.error {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(255,77,109,0.08);
+    }
+    .field textarea { resize: vertical; min-height: 130px; }
+    .field-error {
+      display: none; font-family: var(--mono); font-size: 0.68rem;
+      color: var(--error); margin-top: 0.35rem; letter-spacing: 0.05em;
+    }
+    .field-error.show { display: block; }
+
+    /* char counter */
+    .field-footer { display: flex; justify-content: flex-end; }
+    #char-count { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+
+    /* checkbox */
+    .check-row {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .check-row input[type="checkbox"] { margin-top: 2px; accent-color: var(--accent); cursor: pointer; }
+    .check-row label { font-size: 0.8rem; color: var(--muted); line-height: 1.5; cursor: pointer; }
+
+    .btn-submit {
+      width: 100%; padding: 1rem;
+      background: var(--accent); color: #000;
+      border: none; border-radius: 8px;
+      font-family: var(--sans); font-weight: 800;
+      font-size: 1rem; cursor: pointer;
+      transition: all 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .btn-submit:hover { background: #fff; box-shadow: 0 0 30px rgba(0,229,255,0.3); transform: translateY(-2px); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* ── SUCCESS STATE ── */
+    .success-state {
+      display: none;
+      text-align: center; padding: 4rem 2rem;
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .success-state.show { display: block; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .success-icon { font-size: 4rem; margin-bottom: 1.5rem; }
+    .success-title { font-size: 1.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 0.8rem; }
+    .success-sub { color: var(--muted); font-size: 0.9rem; line-height: 1.7; max-width: 320px; margin: 0 auto 2rem; }
+    .btn-back {
+      display: inline-block; padding: 0.8rem 2rem;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--text); border-radius: 6px;
+      font-family: var(--sans); font-weight: 700; font-size: 0.9rem;
+      cursor: pointer; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-back:hover { border-color: var(--accent); color: var(--accent); }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 3rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: var(--mono); font-size: 1.1rem; color: var(--accent); text-decoration: none; font-weight: 700; }
+    .footer-copy { font-size: 0.78rem; color: var(--muted); font-family: var(--mono); }
+    .footer-nav { display: flex; gap: 2rem; flex-wrap: wrap; }
+    .footer-nav a { color: var(--muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Nex<span>Core</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="producto.html">Producto</a></li>
+    <li><a href="contacto.html" class="active">Contacto</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <!-- LEFT -->
+  <div class="page-left">
+    <div class="bg-grid"></div>
+    <div class="bg-glow"></div>
+    <div class="left-content">
+      <p class="page-tag">// Estamos aquí para ayudarte</p>
+      <h1 class="page-title">Habla<br>con un<br>experto</h1>
+      <p class="page-sub">Nuestro equipo de especialistas en tecnología responde todas tus dudas sobre productos, pedidos y compatibilidad.</p>
+
+      <div class="contact-methods">
+        <div class="contact-method">
+          <div class="method-icon">📧</div>
+          <div>
+            <p class="method-label">Email</p>
+            <p class="method-val">soporte@nexcore.es</p>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="method-icon">📞</div>
+          <div>
+            <p class="method-label">Teléfono</p>
+            <p class="method-val">900 123 456 (L–V 9–20h)</p>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="method-icon">📍</div>
+          <div>
+            <p class="method-label">Tiendas físicas</p>
+            <p class="method-val">Madrid · Barcelona · Murcia</p>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="method-icon">⏱️</div>
+          <div>
+            <p class="method-label">Respuesta media</p>
+            <p class="method-val">Menos de 2 horas</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="page-right">
+
+    <!-- FORM -->
+    <div id="form-section">
+      <h2 class="form-title">Envíanos un mensaje</h2>
+      <p class="form-sub">Rellena el formulario y te responderemos lo antes posible.</p>
+
+      <form id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="nombre">Nombre <span class="required">*</span></label>
+            <input type="text" id="nombre" placeholder="Juan García" autocomplete="given-name"/>
+            <p class="field-error" id="err-nombre">Por favor, introduce tu nombre.</p>
+          </div>
+          <div class="field">
+            <label for="apellidos">Apellidos</label>
+            <input type="text" id="apellidos" placeholder="García López" autocomplete="family-name"/>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="email">Correo electrónico <span class="required">*</span></label>
+          <input type="email" id="email" placeholder="juan@ejemplo.es" autocomplete="email"/>
+          <p class="field-error" id="err-email">Introduce un correo electrónico válido.</p>
+        </div>
+
+        <div class="field">
+          <label for="telefono">Teléfono (opcional)</label>
+          <input type="tel" id="telefono" placeholder="+34 600 000 000" autocomplete="tel"/>
+        </div>
+
+        <div class="field">
+          <label for="asunto">Asunto <span class="required">*</span></label>
+          <select id="asunto">
+            <option value="">Selecciona un asunto…</option>
+            <option>Consulta sobre un producto</option>
+            <option>Estado de mi pedido</option>
+            <option>Devolución o garantía</option>
+            <option>Compatibilidad de componentes</option>
+            <option>Otro</option>
+          </select>
+          <p class="field-error" id="err-asunto">Selecciona un asunto para tu consulta.</p>
+        </div>
+
+        <div class="field">
+          <label for="mensaje">Mensaje <span class="required">*</span></label>
+          <textarea id="mensaje" placeholder="Cuéntanos cómo podemos ayudarte…" maxlength="1000" oninput="updateCount()"></textarea>
+          <div class="field-footer">
+            <span id="char-count">0 / 1000</span>
+          </div>
+          <p class="field-error" id="err-mensaje">El mensaje debe tener al menos 10 caracteres.</p>
+        </div>
+
+        <div class="check-row">
+          <input type="checkbox" id="privacidad"/>
+          <label for="privacidad">He leído y acepto la <a href="#" style="color:var(--accent);">Política de Privacidad</a>. Consiento el tratamiento de mis datos para atender mi consulta. <span class="required" style="color:var(--accent);">*</span></label>
+        </div>
+        <p class="field-error" id="err-privacidad" style="margin-top:-0.8rem; margin-bottom:1rem;">Debes aceptar la política de privacidad.</p>
+
+        <button type="submit" class="btn-submit" id="submitBtn">
+          Enviar mensaje →
+        </button>
+      </form>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-state" id="success-state">
+      <div class="success-icon">✅</div>
+      <h3 class="success-title">¡Mensaje enviado!</h3>
+      <p class="success-sub">Hemos recibido tu consulta. Nuestro equipo te responderá en menos de 2 horas en días laborables.</p>
+      <a href="index.html" class="btn-back">← Volver al inicio</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html" class="footer-logo">NexCore</a>
+  <nav class="footer-nav">
+    <a href="index.html">Inicio</a>
+    <a href="producto.html">Productos</a>
+    <a href="contacto.html">Contacto</a>
+  </nav>
+  <p class="footer-copy">© 2026 NexCore — Todos los derechos reservados</p>
+</footer>
+
+<script>
+  function updateCount() {
+    const v = document.getElementById('mensaje').value.length;
+    document.getElementById('char-count').textContent = v + ' / 1000';
+  }
+
+  function showError(id, show) {
+    const el = document.getElementById(id);
+    if (el) { show ? el.classList.add('show') : el.classList.remove('show'); }
+  }
+
+  function setFieldError(fieldId, errId, hasError) {
+    const field = document.getElementById(fieldId);
+    if (!field) return;
+    if (hasError) {
+      field.classList.add('error');
+      showError(errId, true);
+    } else {
+      field.classList.remove('error');
+      showError(errId, false);
+    }
+    return hasError;
+  }
+
+  function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let valid = true;
+
+    // Nombre
+    const nombre = document.getElementById('nombre').value.trim();
+    if (setFieldError('nombre', 'err-nombre', nombre.length < 2)) valid = false;
+
+    // Email
+    const email = document.getElementById('email').value.trim();
+    if (setFieldError('email', 'err-email', !validateEmail(email))) valid = false;
+
+    // Asunto
+    const asunto = document.getElementById('asunto').value;
+    if (setFieldError('asunto', 'err-asunto', asunto === '')) valid = false;
+
+    // Mensaje
+    const mensaje = document.getElementById('mensaje').value.trim();
+    if (setFieldError('mensaje', 'err-mensaje', mensaje.length < 10)) valid = false;
+
+    // Privacidad
+    const privacidad = document.getElementById('privacidad').checked;
+    if (!privacidad) {
+      showError('err-privacidad', true);
+      valid = false;
+    } else {
+      showError('err-privacidad', false);
+    }
+
+    if (!valid) return;
+
+    // Simulate sending
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Enviando…';
+    btn.disabled = true;
+
+    setTimeout(() => {
+      document.getElementById('form-section').style.display = 'none';
+      document.getElementById('success-state').classList.add('show');
+    }, 1200);
+  });
+
+  // Live validation on blur
+  document.getElementById('nombre').addEventListener('blur', function() {
+    setFieldError('nombre', 'err-nombre', this.value.trim().length < 2);
+  });
+  document.getElementById('email').addEventListener('blur', function() {
+    setFieldError('email', 'err-email', !validateEmail(this.value.trim()));
+  });
+  document.getElementById('asunto').addEventListener('change', function() {
+    setFieldError('asunto', 'err-asunto', this.value === '');
+  });
+  document.getElementById('mensaje').addEventListener('blur', function() {
+    setFieldError('mensaje', 'err-mensaje', this.value.trim().length < 10);
+  });
+  document.getElementById('privacidad').addEventListener('change', function() {
+    if (this.checked) showError('err-privacidad', false);
+  });
+</script>
+</body>
+</html>
