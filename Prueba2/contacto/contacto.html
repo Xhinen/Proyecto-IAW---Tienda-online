@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechShop - Contacto</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      color: #333;
+    }
+
+    /* NAVBAR */
+    nav {
+      background-color: #1a1a2e;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      color: #e94560;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    nav ul a:hover {
+      color: #e94560;
+      text-decoration: underline;
+    }
+
+    /* CABECERA PAGINA */
+    .cabecera-pagina {
+      background-color: #16213e;
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .cabecera-pagina h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .cabecera-pagina h1 span {
+      color: #e94560;
+    }
+
+    .cabecera-pagina p {
+      font-size: 15px;
+      color: #ccc;
+    }
+
+    /* CONTENIDO PRINCIPAL */
+    .contenido {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    /* COLUMNA IZQUIERDA - INFO */
+    .info-contacto {
+      flex: 1;
+    }
+
+    .info-contacto h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid #e94560;
+      padding-left: 10px;
+    }
+
+    .metodo-contacto {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .metodo-contacto .icono {
+      font-size: 28px;
+    }
+
+    .metodo-contacto .texto h4 {
+      font-size: 14px;
+      color: #999;
+      font-weight: normal;
+      margin-bottom: 3px;
+    }
+
+    .metodo-contacto .texto p {
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    /* COLUMNA DERECHA - FORMULARIO */
+    .formulario-wrap {
+      flex: 1.5;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 30px;
+    }
+
+    .formulario-wrap h2 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .formulario-wrap p.subtitulo {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    /* CAMPOS */
+    .campo {
+      margin-bottom: 18px;
+    }
+
+    .campo label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #444;
+    }
+
+    .campo label .obligatorio {
+      color: #e94560;
+    }
+
+    .campo input,
+    .campo select,
+    .campo textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      font-family: Arial, sans-serif;
+      outline: none;
+    }
+
+    .campo input:focus,
+    .campo select:focus,
+    .campo textarea:focus {
+      border-color: #e94560;
+    }
+
+    .campo input.error,
+    .campo select.error,
+    .campo textarea.error {
+      border-color: red;
+      background-color: #fff5f5;
+    }
+
+    .campo textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .mensaje-error {
+      display: none;
+      color: red;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .mensaje-error.visible {
+      display: block;
+    }
+
+    /* FILA DE DOS COLUMNAS */
+    .fila-doble {
+      display: flex;
+      gap: 15px;
+    }
+
+    .fila-doble .campo {
+      flex: 1;
+    }
+
+    /* CHECKBOX */
+    .campo-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .campo-check input[type="checkbox"] {
+      margin-top: 3px;
+      cursor: pointer;
+    }
+
+    .campo-check label {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.5;
+      cursor: pointer;
+    }
+
+    .campo-check label a {
+      color: #e94560;
+    }
+
+    /* BOTON ENVIAR */
+    .btn-enviar {
+      width: 100%;
+      padding: 12px;
+      background-color: #e94560;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn-enviar:hover {
+      background-color: #c73652;
+    }
+
+    /* MENSAJE EXITO */
+    #exito {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    #exito .icono-exito {
+      font-size: 60px;
+      margin-bottom: 15px;
+    }
+
+    #exito h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: green;
+    }
+
+    #exito p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    #exito a {
+      display: inline-block;
+      padding: 10px 25px;
+      background-color: #1a1a2e;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    #exito a:hover {
+      background-color: #e94560;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #1a1a2e;
+      color: #aaa;
+      text-align: center;
+      padding: 25px;
+      font-size: 13px;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #e94560;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="logo">💻 TechShop</a>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="producto.html">Producto</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- CABECERA -->
+  <div class="cabecera-pagina">
+    <h1>Formulario de <span>Contacto</span></h1>
+    <p>Rellena el formulario y te responderemos lo antes posible</p>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="contenido">
+
+    <!-- INFO CONTACTO -->
+    <div class="info-contacto">
+      <h2>Nuestros datos</h2>
+
+      <div class="metodo-contacto">
+        <div class="icono">📧</div>
+        <div class="texto">
+          <h4>Email</h4>
+          <p>soporte@techshop.es</p>
+        </div>
+      </div>
+
+      <div class="metodo-contacto">
+        <div class="icono">📞</div>
+        <div class="texto">
+          <h4>Telefono</h4>
+          <p>900 123 456</p>
+        </div>
+      </div>
+
+      <div class="metodo-contacto">
+        <div class="icono">📍</div>
+        <div class="texto">
+          <h4>Direccion</h4>
+          <p>Murcia, España</p>
+        </div>
+      </div>
+
+      <div class="metodo-contacto">
+        <div class="icono">🕐</div>
+        <div class="texto">
+          <h4>Horario</h4>
+          <p>Lunes a Viernes 9:00 - 20:00</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="formulario-wrap">
+
+      <div id="formulario-seccion">
+        <h2>Envíanos un mensaje</h2>
+        <p class="subtitulo">Los campos marcados con * son obligatorios</p>
+
+        <form id="formulario-contacto">
+
+          <div class="fila-doble">
+            <div class="campo">
+              <label for="nombre">Nombre <span class="obligatorio">*</span></label>
+              <input type="text" id="nombre" placeholder="Tu nombre">
+              <p class="mensaje-error" id="error-nombre">El nombre es obligatorio</p>
+            </div>
+            <div class="campo">
+              <label for="apellidos">Apellidos</label>
+              <input type="text" id="apellidos" placeholder="Tus apellidos">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="email">Correo electronico <span class="obligatorio">*</span></label>
+            <input type="email" id="email" placeholder="tucorreo@ejemplo.es">
+            <p class="mensaje-error" id="error-email">Introduce un correo electronico valido</p>
+          </div>
+
+          <div class="campo">
+            <label for="telefono">Telefono (opcional)</label>
+            <input type="tel" id="telefono" placeholder="600 000 000">
+          </div>
+
+          <div class="campo">
+            <label for="asunto">Asunto <span class="obligatorio">*</span></label>
+            <select id="asunto">
+              <option value="">-- Selecciona un asunto --</option>
+              <option>Consulta sobre un producto</option>
+              <option>Estado de mi pedido</option>
+              <option>Devolucion o garantia</option>
+              <option>Problema tecnico</option>
+              <option>Otro</option>
+            </select>
+            <p class="mensaje-error" id="error-asunto">Debes seleccionar un asunto</p>
+          </div>
+
+          <div class="campo">
+            <label for="mensaje">Mensaje <span class="obligatorio">*</span></label>
+            <textarea id="mensaje" placeholder="Escribe aqui tu mensaje..."></textarea>
+            <p class="mensaje-error" id="error-mensaje">El mensaje debe tener al menos 10 caracteres</p>
+          </div>
+
+          <div class="campo-check">
+            <input type="checkbox" id="privacidad">
+            <label for="privacidad">
+              He leido y acepto la <a href="#">Politica de Privacidad</a>. Consiento el tratamiento de mis datos. <span class="obligatorio">*</span>
+            </label>
+          </div>
+          <p class="mensaje-error" id="error-privacidad" style="margin-bottom:10px;">Debes aceptar la politica de privacidad</p>
+
+          <button type="submit" class="btn-enviar">Enviar mensaje</button>
+
+        </form>
+      </div>
+
+      <!-- MENSAJE DE EXITO -->
+      <div id="exito">
+        <div class="icono-exito">✅</div>
+        <h3>¡Mensaje enviado!</h3>
+        <p>Hemos recibido tu consulta. Te responderemos en menos de 24 horas.</p>
+        <a href="index.html">Volver al inicio</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 TechShop - Proyecto DAW/ASIR</p>
+    <br>
+    <a href="index.html">Inicio</a>
+    <a href="producto.html">Producto</a>
+    <a href="contacto.html">Contacto</a>
+  </footer>
+
+  <script>
+    // Funcion para validar el formulario usando getElementById
+    document.getElementById('formulario-contacto').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var valido = true;
+
+      // Obtener los valores con getElementById
+      var nombre = document.getElementById('nombre').value;
+      var email = document.getElementById('email').value;
+      var asunto = document.getElementById('asunto').value;
+      var mensaje = document.getElementById('mensaje').value;
+      var privacidad = document.getElementById('privacidad').checked;
+
+      // Validar nombre
+      if (nombre.trim() == '') {
+        document.getElementById('nombre').classList.add('error');
+        document.getElementById('error-nombre').classList.add('visible');
+        valido = false;
+      } else {
+        document.getElementById('nombre').classList.remove('error');
+        document.getElementById('error-nombre').classList.remove('visible');
+      }
+
+      // Validar email
+      // Comprobamos que tenga @ y un punto despues
+      var emailValido = email.indexOf('@') !== -1 && email.indexOf('.') !== -1;
+      if (email.trim() == '' || !emailValido) {
+        document.getElementById('email').classList.add('error');
+        document.getElementById('error-email').classList.add('visible');
+        valido = false;
+      } else {
+        document.getElementById('email').classList.remove('error');
+        document.getElementById('error-email').classList.remove('visible');
+      }
+
+      // Validar asunto
+      if (asunto == '') {
+        document.getElementById('asunto').classList.add('error');
+        document.getElementById('error-asunto').classList.add('visible');
+        valido = false;
+      } else {
+        document.getElementById('asunto').classList.remove('error');
+        document.getElementById('error-asunto').classList.remove('visible');
+      }
+
+      // Validar mensaje
+      if (mensaje.trim().length < 10) {
+        document.getElementById('mensaje').classList.add('error');
+        document.getElementById('error-mensaje').classList.add('visible');
+        valido = false;
+      } else {
+        document.getElementById('mensaje').classList.remove('error');
+        document.getElementById('error-mensaje').classList.remove('visible');
+      }
+
+      // Validar privacidad
+      if (!privacidad) {
+        document.getElementById('error-privacidad').classList.add('visible');
+        valido = false;
+      } else {
+        document.getElementById('error-privacidad').classList.remove('visible');
+      }
+
+      // Si todo esta bien, mostrar el mensaje de exito
+      if (valido == true) {
+        document.getElementById('formulario-seccion').style.display = 'none';
+        document.getElementById('exito').style.display = 'block';
+      }
+    });
+  </script>
+
+</body>
+</html>

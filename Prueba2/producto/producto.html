@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechShop - RTX 5060</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      color: #333;
+    }
+
+    /* NAVBAR */
+    nav {
+      background-color: #1a1a2e;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      color: #e94560;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    nav ul a:hover {
+      color: #e94560;
+      text-decoration: underline;
+    }
+
+    /* MIGAS DE PAN */
+    .migas {
+      padding: 12px 30px;
+      font-size: 13px;
+      color: #777;
+      background-color: white;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .migas a {
+      color: #e94560;
+      text-decoration: none;
+    }
+
+    .migas a:hover {
+      text-decoration: underline;
+    }
+
+    /* CONTENIDO PRINCIPAL */
+    .contenido {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    /* IMAGEN PRODUCTO */
+    .imagen-producto {
+      flex: 1;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .imagen-producto .emoji {
+      font-size: 120px;
+    }
+
+    .badge-descuento {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background-color: #e94560;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .miniaturas {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .miniatura {
+      background-color: #eee;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      padding: 8px;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    .miniatura:hover {
+      border-color: #e94560;
+    }
+
+    /* INFO PRODUCTO */
+    .info-producto {
+      flex: 1;
+    }
+
+    .info-producto .categoria {
+      font-size: 12px;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .info-producto h1 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .estrellas {
+      color: orange;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .precio-bloque {
+      margin-bottom: 20px;
+    }
+
+    .precio-grande {
+      font-size: 32px;
+      font-weight: bold;
+      color: #e94560;
+    }
+
+    .precio-tachado {
+      font-size: 16px;
+      color: #999;
+      text-decoration: line-through;
+      margin-left: 10px;
+    }
+
+    .ahorro {
+      display: inline-block;
+      background-color: #e8f5e9;
+      color: green;
+      font-size: 13px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+
+    /* SEPARADOR */
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 20px 0;
+    }
+
+    /* ESPECIFICACIONES */
+    .especificaciones {
+      margin-bottom: 20px;
+    }
+
+    .especificaciones h3 {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .especificaciones table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .especificaciones table tr {
+      border-bottom: 1px solid #eee;
+    }
+
+    .especificaciones table td {
+      padding: 7px 5px;
+    }
+
+    .especificaciones table td:first-child {
+      color: #777;
+      width: 40%;
+    }
+
+    /* CANTIDAD */
+    .cantidad-row {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .cantidad-row label {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .cantidad-row input {
+      width: 60px;
+      padding: 6px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* BOTONES */
+    .botones {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .btn-carrito {
+      flex: 1;
+      padding: 12px;
+      background-color: #e94560;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-carrito:hover {
+      background-color: #c73652;
+    }
+
+    .btn-guardar {
+      padding: 12px 20px;
+      background-color: white;
+      color: #333;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-guardar:hover {
+      border-color: #e94560;
+      color: #e94560;
+    }
+
+    /* GARANTIAS */
+    .garantias {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .garantia-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* DESCRIPCION TABS */
+    .tabs-section {
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+
+    .tabs-nav {
+      display: flex;
+      border-bottom: 2px solid #ddd;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      padding: 10px 20px;
+      background: none;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      color: #777;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+    }
+
+    .tab-btn.activo {
+      color: #e94560;
+      border-bottom-color: #e94560;
+      font-weight: bold;
+    }
+
+    .tab-btn:hover {
+      color: #333;
+    }
+
+    .tab-contenido {
+      display: none;
+    }
+
+    .tab-contenido.activo {
+      display: block;
+    }
+
+    .tab-contenido p {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .tabla-specs {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .tabla-specs tr {
+      border-bottom: 1px solid #eee;
+    }
+
+    .tabla-specs td {
+      padding: 9px 10px;
+    }
+
+    .tabla-specs td:first-child {
+      color: #777;
+      width: 35%;
+      background-color: #fafafa;
+    }
+
+    /* OPINIONES */
+    .opinion {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 12px;
+    }
+
+    .opinion .cabecera {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .opinion .nombre {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .opinion .fecha {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .opinion .texto {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* PRODUCTOS RELACIONADOS */
+    .relacionados {
+      max-width: 1000px;
+      margin: 0 auto 40px;
+      padding: 0 20px;
+    }
+
+    .relacionados h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      border-left: 4px solid #e94560;
+      padding-left: 10px;
+    }
+
+    .grid-relacionados {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .tarjeta-rel {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .tarjeta-rel:hover {
+      border-color: #e94560;
+    }
+
+    .tarjeta-rel .img-rel {
+      background-color: #eee;
+      padding: 20px;
+      font-size: 40px;
+    }
+
+    .tarjeta-rel .info-rel {
+      padding: 10px;
+    }
+
+    .tarjeta-rel .info-rel p {
+      font-size: 12px;
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+
+    .tarjeta-rel .info-rel .prec {
+      font-weight: bold;
+      color: #e94560;
+      font-size: 14px;
+    }
+
+    /* MENSAJE CARRITO */
+    #mensaje-carrito {
+      display: none;
+      background-color: #e8f5e9;
+      border: 1px solid green;
+      color: green;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #1a1a2e;
+      color: #aaa;
+      text-align: center;
+      padding: 25px;
+      font-size: 13px;
+    }
+
+    footer a {
+      color: #e94560;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="logo">💻 TechShop</a>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="producto.html">Producto</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- MIGAS DE PAN -->
+  <div class="migas">
+    <a href="index.html">Inicio</a> &gt;
+    <a href="#">Tarjetas graficas</a> &gt;
+    RTX 5060 OC Edition
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="contenido">
+
+    <!-- IMAGEN -->
+    <div class="imagen-producto">
+      <div class="badge-descuento">-16%</div>
+      <div class="emoji" id="emoji-principal">🎮</div>
+      <div class="miniaturas">
+        <div class="miniatura" onclick="cambiarEmoji('🎮')">🎮</div>
+        <div class="miniatura" onclick="cambiarEmoji('💻')">💻</div>
+        <div class="miniatura" onclick="cambiarEmoji('🔌')">🔌</div>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="info-producto">
+      <p class="categoria">Tarjeta Grafica · ASUS</p>
+      <h1>ASUS PRIME GeForce RTX 5060 OC Edition 8GB GDDR7 Reflex 2 DLSS4</h1>
+
+      <p class="estrellas">★★★★★ 4.7/5 · 269 opiniones</p>
+
+      <div class="precio-bloque">
+        <span class="precio-grande">335,85€</span>
+        <span class="precio-tachado">403,89€</span>
+        <br>
+        <span class="ahorro">✓ Ahorras 68,04€</span>
+      </div>
+
+      <hr>
+
+      <div class="especificaciones">
+        <h3>Caracteristicas principales:</h3>
+        <table>
+          <tr><td>Chip</td><td>GeForce RTX 5060</td></tr>
+          <tr><td>Memoria</td><td>8GB GDDR7</td></tr>
+          <tr><td>Bus</td><td>128-bit</td></tr>
+          <tr><td>Conectores</td><td>HDMI 2.1 + 3x DisplayPort</td></tr>
+          <tr><td>Consumo</td><td>160W</td></tr>
+          <tr><td>Tecnologia IA</td><td>DLSS 4 · RTX AI</td></tr>
+        </table>
+      </div>
+
+      <!-- MENSAJE CONFIRMACION -->
+      <div id="mensaje-carrito">
+        ✅ Producto añadido al carrito correctamente
+      </div>
+
+      <div class="cantidad-row">
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" value="1" min="1" max="99">
+      </div>
+
+      <div class="botones">
+        <button class="btn-carrito" onclick="agregarCarrito()">🛒 Agregar al carrito</button>
+        <button class="btn-guardar">♡ Guardar</button>
+      </div>
+
+      <div class="garantias">
+        <span class="garantia-item">🚀 Envio gratis</span>
+        <span class="garantia-item">↩️ Devolucion gratuita</span>
+        <span class="garantia-item">🛡️ Garantia 2 años</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TABS DESCRIPCION / SPECS / OPINIONES -->
+  <div class="tabs-section">
+    <div class="tabs-nav">
+      <button class="tab-btn activo" onclick="cambiarTab('descripcion', this)">Descripcion</button>
+      <button class="tab-btn" onclick="cambiarTab('specs', this)">Especificaciones</button>
+      <button class="tab-btn" onclick="cambiarTab('opiniones', this)">Opiniones (269)</button>
+    </div>
+
+    <div class="tab-contenido activo" id="tab-descripcion">
+      <p>La <strong>ASUS PRIME GeForce RTX 5060 OC Edition</strong> es una tarjeta grafica de ultima generacion basada en la arquitectura Blackwell de NVIDIA. Ideal para gaming en 1080p y 1440p con maxima calidad grafica.</p>
+      <p>Gracias a la tecnologia DLSS 4 con Multi Frame Generation, puedes conseguir el doble de fotogramas por segundo en juegos compatibles sin perder calidad visual.</p>
+      <p>El sistema de refrigeracion triple ventilador mantiene temperaturas bajas incluso en sesiones largas de juego. La temperatura maxima registrada en pruebas es de 68°C bajo carga total.</p>
+    </div>
+
+    <div class="tab-contenido" id="tab-specs">
+      <table class="tabla-specs">
+        <tr><td>Marca</td><td>ASUS</td></tr>
+        <tr><td>Modelo</td><td>PRIME-RTX5060-O8G</td></tr>
+        <tr><td>GPU</td><td>NVIDIA GeForce RTX 5060</td></tr>
+        <tr><td>Arquitectura</td><td>Blackwell</td></tr>
+        <tr><td>Memoria</td><td>8 GB GDDR7</td></tr>
+        <tr><td>Velocidad memoria</td><td>28 Gbps</td></tr>
+        <tr><td>Bus de memoria</td><td>128-bit</td></tr>
+        <tr><td>CUDA Cores</td><td>3840</td></tr>
+        <tr><td>Boost Clock</td><td>2610 MHz</td></tr>
+        <tr><td>Salidas de video</td><td>1x HDMI 2.1 + 3x DP 2.1</td></tr>
+        <tr><td>TDP</td><td>160 W</td></tr>
+        <tr><td>PSU recomendada</td><td>650 W</td></tr>
+        <tr><td>Dimensiones</td><td>282 x 120 x 46 mm</td></tr>
+        <tr><td>Garantia</td><td>2 años</td></tr>
+      </table>
+    </div>
+
+    <div class="tab-contenido" id="tab-opiniones">
+      <div class="opinion">
+        <div class="cabecera">
+          <span class="nombre">Carlos M.</span>
+          <span class="fecha">Marzo 2026 · ★★★★★</span>
+        </div>
+        <p class="texto">Increible rendimiento por el precio. En 1080p y 1440p va muy bien. El DLSS 4 es una pasada. Temperatura maxima 68°C. Muy recomendable.</p>
+      </div>
+      <div class="opinion">
+        <div class="cabecera">
+          <span class="nombre">Ana P.</span>
+          <span class="fecha">Febrero 2026 · ★★★★☆</span>
+        </div>
+        <p class="texto">Buena tarjeta para el precio. Bastante silenciosa. Le quito una estrella porque los 8GB se quedan algo justos en 4K con texturas ultra.</p>
+      </div>
+      <div class="opinion">
+        <div class="cabecera">
+          <span class="nombre">Roberto S.</span>
+          <span class="fecha">Enero 2026 · ★★★★★</span>
+        </div>
+        <p class="texto">La uso para Blender y Premiere. Una bestia para el precio. El soporte CUDA es completo y el rendimiento con IA es muy bueno.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTOS RELACIONADOS -->
+  <div class="relacionados">
+    <h2>Tambien te puede interesar</h2>
+    <div class="grid-relacionados">
+      <div class="tarjeta-rel">
+        <div class="img-rel">🖥️</div>
+        <div class="info-rel">
+          <p>ASUS RTX 5070 OC 12GB GDDR7</p>
+          <p class="prec">649€</p>
+        </div>
+      </div>
+      <div class="tarjeta-rel">
+        <div class="img-rel">💾</div>
+        <div class="info-rel">
+          <p>SSD 1TB NVMe PCIe 4.0</p>
+          <p class="prec">189,95€</p>
+        </div>
+      </div>
+      <div class="tarjeta-rel">
+        <div class="img-rel">🖱️</div>
+        <div class="info-rel">
+          <p>Logitech Superlight 2 SE</p>
+          <p class="prec">84,90€</p>
+        </div>
+      </div>
+      <div class="tarjeta-rel">
+        <div class="img-rel">🖥</div>
+        <div class="info-rel">
+          <p>Monitor AOC 27" QHD 180Hz</p>
+          <p class="prec">169€</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 TechShop - Proyecto DAW/ASIR</p>
+    <br>
+    <a href="index.html">Inicio</a>
+    <a href="producto.html">Producto</a>
+    <a href="contacto.html">Contacto</a>
+  </footer>
+
+  <script>
+    function cambiarEmoji(emoji) {
+      document.getElementById('emoji-principal').textContent = emoji;
+    }
+
+    function agregarCarrito() {
+      var cantidad = document.getElementById('cantidad').value;
+      var mensaje = document.getElementById('mensaje-carrito');
+      mensaje.textContent = '✅ Producto añadido al carrito: RTX 5060 x' + cantidad;
+      mensaje.style.display = 'block';
+      // Ocultar el mensaje despues de 3 segundos
+      setTimeout(function() {
+        mensaje.style.display = 'none';
+      }, 3000);
+    }
+
+    function cambiarTab(id, boton) {
+      // Ocultar todos los contenidos
+      var contenidos = document.querySelectorAll('.tab-contenido');
+      for (var i = 0; i < contenidos.length; i++) {
+        contenidos[i].classList.remove('activo');
+      }
+      // Quitar clase activo de todos los botones
+      var botones = document.querySelectorAll('.tab-btn');
+      for (var i = 0; i < botones.length; i++) {
+        botones[i].classList.remove('activo');
+      }
+      // Mostrar el contenido seleccionado
+      document.getElementById('tab-' + id).classList.add('activo');
+      boton.classList.add('activo');
+    }
+  </script>
+
+</body>
+</html>

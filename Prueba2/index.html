@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechShop - Tienda de informatica</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      color: #333;
+    }
+
+    /* NAVBAR */
+    nav {
+      background-color: #1a1a2e;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav .logo {
+      color: #e94560;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    nav ul a:hover {
+      color: #e94560;
+      text-decoration: underline;
+    }
+
+    /* HEADER / BANNER */
+    .banner {
+      background-color: #16213e;
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .banner h1 {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .banner h1 span {
+      color: #e94560;
+    }
+
+    .banner p {
+      font-size: 16px;
+      color: #cccccc;
+      margin-bottom: 30px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .banner a {
+      background-color: #e94560;
+      color: white;
+      padding: 12px 30px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 15px;
+      margin: 0 8px;
+    }
+
+    .banner a:hover {
+      background-color: #c73652;
+    }
+
+    .banner a.btn-outline {
+      background-color: transparent;
+      border: 2px solid white;
+    }
+
+    .banner a.btn-outline:hover {
+      background-color: white;
+      color: #16213e;
+    }
+
+    /* INFO BAR */
+    .info-bar {
+      background-color: #e94560;
+      color: white;
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      padding: 15px;
+      flex-wrap: wrap;
+    }
+
+    .info-bar div {
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .info-bar div strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    /* PRODUCTS SECTION */
+    .productos {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .productos h2 {
+      font-size: 26px;
+      margin-bottom: 5px;
+      border-left: 4px solid #e94560;
+      padding-left: 12px;
+    }
+
+    .productos p.subtitulo {
+      color: #777;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .grid-productos {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .tarjeta {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .tarjeta:hover {
+      border-color: #e94560;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .tarjeta-img {
+      background-color: #eee;
+      height: 170px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      position: relative;
+    }
+
+    .descuento {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #e94560;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .tarjeta-body {
+      padding: 15px;
+    }
+
+    .tarjeta-body .categoria {
+      font-size: 11px;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .tarjeta-body h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .tarjeta-body .estrellas {
+      color: orange;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .tarjeta-body .precio-actual {
+      font-size: 18px;
+      font-weight: bold;
+      color: #e94560;
+    }
+
+    .tarjeta-body .precio-antes {
+      font-size: 12px;
+      color: #999;
+      text-decoration: line-through;
+      margin-left: 5px;
+    }
+
+    .tarjeta-body a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 7px 14px;
+      background-color: #1a1a2e;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .tarjeta-body a:hover {
+      background-color: #e94560;
+    }
+
+    /* POR QUE ELEGIRNOS */
+    .por-que {
+      background-color: #1a1a2e;
+      color: white;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .por-que h2 {
+      font-size: 26px;
+      margin-bottom: 35px;
+    }
+
+    .por-que h2 span {
+      color: #e94560;
+    }
+
+    .ventajas {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .ventaja {
+      background-color: #16213e;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 25px 20px;
+      width: 200px;
+      text-align: center;
+    }
+
+    .ventaja .icono {
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+
+    .ventaja h4 {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #e94560;
+    }
+
+    .ventaja p {
+      font-size: 12px;
+      color: #aaa;
+      line-height: 1.5;
+    }
+
+    /* CONTACTO BANNER */
+    .cta-banner {
+      background-color: #e94560;
+      color: white;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .cta-banner h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .cta-banner p {
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .cta-banner a {
+      background-color: white;
+      color: #e94560;
+      padding: 12px 28px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .cta-banner a:hover {
+      background-color: #f5f5f5;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #1a1a2e;
+      color: #aaa;
+      text-align: center;
+      padding: 25px;
+      font-size: 13px;
+    }
+
+    footer a {
+      color: #e94560;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="index.html" class="logo">💻 TechShop</a>
+    <ul>
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="producto.html">Producto</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- BANNER PRINCIPAL -->
+  <div class="banner">
+    <h1>Bienvenido a <span>TechShop</span></h1>
+    <p>Tu tienda de informatica online. Los mejores componentes y dispositivos al mejor precio con envio en 24 horas.</p>
+    <a href="producto.html">Ver productos</a>
+    <a href="contacto.html" class="btn-outline">Contactar</a>
+  </div>
+
+  <!-- BARRA DE ESTADISTICAS -->
+  <div class="info-bar">
+    <div><strong>+100.000</strong> Articulos disponibles</div>
+    <div><strong>24h</strong> Entrega garantizada</div>
+    <div><strong>4.8 ★</strong> Valoracion media</div>
+    <div><strong>Desde 2005</strong> Años de experiencia</div>
+  </div>
+
+  <!-- PRODUCTOS DESTACADOS -->
+  <div class="productos">
+    <h2>Productos destacados</h2>
+    <p class="subtitulo">Las mejores ofertas de la semana en componentes y electronica</p>
+
+    <div class="grid-productos">
+
+      <div class="tarjeta">
+        <div class="tarjeta-img">
+          🎮
+          <span class="descuento">-16%</span>
+        </div>
+        <div class="tarjeta-body">
+          <p class="categoria">Tarjeta grafica</p>
+          <h3>ASUS RTX 5060 OC Edition 8GB GDDR7</h3>
+          <p class="estrellas">★★★★★ (269)</p>
+          <span class="precio-actual">335,85€</span>
+          <span class="precio-antes">403,89€</span>
+          <br>
+          <a href="producto.html">Ver mas</a>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <div class="tarjeta-img">
+          💻
+          <span class="descuento">-23%</span>
+        </div>
+        <div class="tarjeta-body">
+          <p class="categoria">Portatil gaming</p>
+          <h3>Lenovo LOQ 15" i7-13700HX 32GB RTX 5060</h3>
+          <p class="estrellas">★★★★☆ (389)</p>
+          <span class="precio-actual">1.149€</span>
+          <span class="precio-antes">1.499€</span>
+          <br>
+          <a href="producto.html">Ver mas</a>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <div class="tarjeta-img">
+          🍎
+          <span class="descuento">-23%</span>
+        </div>
+        <div class="tarjeta-body">
+          <p class="categoria">Portatil</p>
+          <h3>Apple MacBook Air M4 16GB 256GB 13.6"</h3>
+          <p class="estrellas">★★★★★ (537)</p>
+          <span class="precio-actual">899€</span>
+          <span class="precio-antes">1.179€</span>
+          <br>
+          <a href="producto.html">Ver mas</a>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <div class="tarjeta-img">
+          📺
+          <span class="descuento">-50%</span>
+        </div>
+        <div class="tarjeta-body">
+          <p class="categoria">Television</p>
+          <h3>Philips QLED 55" 4K Ambilight Dolby Atmos</h3>
+          <p class="estrellas">★★★★☆ (105)</p>
+          <span class="precio-actual">379€</span>
+          <span class="precio-antes">759€</span>
+          <br>
+          <a href="producto.html">Ver mas</a>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <div class="tarjeta-img">
+          🎧
+          <span class="descuento">-18%</span>
+        </div>
+        <div class="tarjeta-body">
+          <p class="categoria">Auriculares</p>
+          <h3>Apple AirPods Pro 3 ANC USB-C</h3>
+          <p class="estrellas">★★★★★ (106)</p>
+          <span class="precio-actual">219€</span>
+          <span class="precio-antes">269€</span>
+          <br>
+          <a href="producto.html">Ver mas</a>
+        </div>
+      </div>
+
+      <div class="tarjeta">
+        <div class="tarjeta-img">
+          🖱️
+          <span class="descuento">-34%</span>
+        </div>
+        <div class="tarjeta-body">
+          <p class="categoria">Raton gaming</p>
+          <h3>Logitech Pro X Superlight 2 SE 44000 DPI</h3>
+          <p class="estrellas">★★★★★ (54)</p>
+          <span class="precio-actual">84,90€</span>
+          <span class="precio-antes">129,99€</span>
+          <br>
+          <a href="producto.html">Ver mas</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- POR QUE ELEGIRNOS -->
+  <div class="por-que">
+    <h2>¿Por que <span>elegirnos?</span></h2>
+    <div class="ventajas">
+      <div class="ventaja">
+        <div class="icono">🚀</div>
+        <h4>Envio en 24h</h4>
+        <p>Si no cumplimos te devolvemos los gastos de envio</p>
+      </div>
+      <div class="ventaja">
+        <div class="icono">🛡️</div>
+        <h4>Garantia 2 años</h4>
+        <p>Todos nuestros productos tienen garantia oficial</p>
+      </div>
+      <div class="ventaja">
+        <div class="icono">↩️</div>
+        <h4>Devoluciones gratis</h4>
+        <p>Puedes devolver cualquier producto sin coste</p>
+      </div>
+      <div class="ventaja">
+        <div class="icono">💬</div>
+        <h4>Soporte tecnico</h4>
+        <p>Te ayudamos con cualquier duda sobre tus compras</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA CONTACTO -->
+  <div class="cta-banner">
+    <h2>¿Tienes alguna duda?</h2>
+    <p>Contacta con nosotros y te respondemos lo antes posible</p>
+    <a href="contacto.html">Ir al formulario de contacto</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 TechShop - Proyecto DAW/ASIR</p>
+    <br>
+    <a href="index.html">Inicio</a>
+    <a href="producto.html">Producto</a>
+    <a href="contacto.html">Contacto</a>
+  </footer>
+
+</body>
+</html>
