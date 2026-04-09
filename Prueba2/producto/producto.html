@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TechShop - RTX 5060</title>
   <link rel="stylesheet" href="../css/style_producto.css">
+  <script src="../js/carrito_contenidos_producto.js"></script>
 </head>
 <body>
 
@@ -186,45 +187,12 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2026 TechShop - Proyecto DAW/ASIR</p>
+    <p>© 2026 TechShop - Proyecto IAW - ASIR</p>
     <br>
     <a href="index.html">Inicio</a>
     <a href="producto.html">Producto</a>
     <a href="contacto.html">Contacto</a>
   </footer>
-
-  <script>
-    function cambiarEmoji(emoji) {
-      document.getElementById('emoji-principal').textContent = emoji;
-    }
-
-    function agregarCarrito() {
-      var cantidad = document.getElementById('cantidad').value;
-      var mensaje = document.getElementById('mensaje-carrito');
-      mensaje.textContent = '✅ Producto añadido al carrito: RTX 5060 x' + cantidad;
-      mensaje.style.display = 'block';
-      // Ocultar el mensaje despues de 3 segundos
-      setTimeout(function() {
-        mensaje.style.display = 'none';
-      }, 3000);
-    }
-
-    function cambiarTab(id, boton) {
-      // Ocultar todos los contenidos
-      var contenidos = document.querySelectorAll('.tab-contenido');
-      for (var i = 0; i < contenidos.length; i++) {
-        contenidos[i].classList.remove('activo');
-      }
-      // Quitar clase activo de todos los botones
-      var botones = document.querySelectorAll('.tab-btn');
-      for (var i = 0; i < botones.length; i++) {
-        botones[i].classList.remove('activo');
-      }
-      // Mostrar el contenido seleccionado
-      document.getElementById('tab-' + id).classList.add('activo');
-      boton.classList.add('activo');
-    }
-  </script>
 
 </body>
 </html>
